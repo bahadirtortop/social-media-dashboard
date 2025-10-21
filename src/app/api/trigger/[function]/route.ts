@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { function: string } }
+  context: { params: Promise<{ function: string }> }
 ) {
   try {
-    const { function: functionName } = params
+    const { function: functionName } = await context.params
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -35,9 +35,10 @@ export async function POST(
       { success: res.ok, data },
       { status: res.ok ? 200 : res.status }
     )
-  } catch (error: any) {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: message },
       { status: 500 }
     )
   }
