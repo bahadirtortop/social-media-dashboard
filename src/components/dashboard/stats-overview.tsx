@@ -54,9 +54,27 @@ export function StatsOverview() {
         icon={CheckCircle}
         color="bg-green-500"
       />
+       <StatsCard
+        title="Görsel Hazırlandı"
+        value={stats?.image_generated || 0}
+        icon={Share2}
+        color="bg-purple-500"
+      />
+      <StatsCard
+        title="Paylaım Bekleniyor"
+        value={stats?.waiting_share_feed || 0}
+        icon={Share2}
+        color="bg-purple-500"
+      />
       <StatsCard
         title="Yayınlandı"
-        value={stats?.published_posts || 0}
+        value={stats?.shared_posts || 0}
+        icon={Share2}
+        color="bg-purple-500"
+      />
+      <StatsCard
+        title="Yayınlanan Hikayeler"
+        value={stats?.shared_stories || 0}
         icon={Share2}
         color="bg-purple-500"
       />
